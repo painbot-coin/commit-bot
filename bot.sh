@@ -15,7 +15,7 @@
 #
 # ...c'mon, nobody commits EVERY day ;)
 #
-info="Commit: $(date)"
+info="Commit: $(date '+%a %b %e %H:%M:%S %Z %Y')"
 echo "OS detected: $OSTYPE"
 
 case "$OSTYPE" in
@@ -27,8 +27,13 @@ case "$OSTYPE" in
         cd "$(dirname "$(readlink -f "$0")")" || exit 1
         ;;
 
+    msys*|cygwin*|mingw*|win*)
+        cd "$(dirname "$0")" || exit 1
+        ;;
+
     *)
         echo "OS unsupported (submit an issue on GitHub!)"
+        cd "$(dirname "$0")" || exit 1
         ;;
 esac
 
